@@ -2,7 +2,8 @@ import math
 
 movies = [
     {"title": "The Dune Chronicles", "year": 2021, "genres": {"sci-fi", "drama"},
-     "rating": 8.6, "duration_min": 155, "actors": ["T. Chalamet", "R. Ferguson", "O. Isaac"]},
+     "rating": 8.6, "duration_min": 155,
+     "actors": ["T. Chalamet", "R. Ferguson", "O. Isaac"]},
     {"title": "Kitchen Stories", "year": 2019, "genres": {"comedy", "drama"},
      "rating": 7.1, "duration_min": 98, "actors": ["A. Novak", "M. Ferguson"]},
     {"title": "silent hours", "year": 2016, "genres": {"thriller", "drama"},
@@ -28,7 +29,6 @@ movies = [
 def average_rating(movies: list[dict]) -> float:
     """Return the average movie rating with round"""
     total_rating = sum(movie["rating"] for movie in movies)
-    
     return round(total_rating / len(movies), 1)
 
 
@@ -38,7 +38,6 @@ def catalog_age_stats(movies: list[dict], current_year: int = 2026) -> tuple:
     oldest = max(ages)
     newest = min(ages)
     average = math.ceil(sum(ages) / len(ages))
-    
     return oldest, newest, average
 
 
@@ -46,12 +45,51 @@ def duration_in_hours(minutes: int) -> str:
     """Convert duration in minutes to ##ч ##м"""
     hours = minutes // 60
     remaining_minutes = minutes % 60
-
     return f"{hours}ч {remaining_minutes}м"
 
 #Stage 2
 
+def rating_tier(rating: float) -> str:
+    """Return movie category"""
+    if rating >= 9:
+        return "шедевр"
+    elif rating >= 7:
+        return "хорошо"
+    return "средне" if rating >= 5 else "слабо"
 
+def decade_label(year: int) -> str:
+    """Return a category based on the movie year"""
+    match year:
+        case _ if year > 2020:
+            return "новые"
+        case _ if year >= 2015:
+            return "недавние"
+        case _:
+            return "старые"
+
+#Stage 3
+
+for movie in movies:
+    if "comedy" in movie["genres"]:
+        continue
+    print(movie["title"])
+
+index = 0
+while index < len(movies):
+    if movies[index]["rating"] > 9.0:
+        print(movies[index]["title"])
+        break
+    index += 1
+else:
+    print("Шедевров не найдено")
+
+def count_long_movies(movies: list[dict], threshold: int = 120) -> int:
+    """Count movies longer than the duration threshold"""
+    count = 0
+    for movie in movies:
+        if movie["duration_min"] > threshold:
+            count += 1
+    return count
 
 def main():
     print("Hello from dz-catalog-analysis-detushev-m-26-555!")
