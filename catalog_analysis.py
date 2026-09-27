@@ -67,24 +67,25 @@ def decade_label(year: int) -> str:
         case _:
             return "старые"
 
-#Stage 3
+# Stage 3
 
-for movie in movies:
-    if "comedy" in movie["genres"]:
-        continue
-    print(movie["title"])
-
-index = 0
-while index < len(movies):
-    if movies[index]["rating"] > 9.0:
-        print(movies[index]["title"])
-        break
-    index += 1
-else:
-    print("Шедевров не найдено")
+def demonstrate_loops(movies: list[dict]) -> None:
+    """for, continue, while, break and else"""
+    for movie in movies:
+        if "comedy" in movie["genres"]:
+            continue
+        print(movie["title"])
+    index = 0
+    while index < len(movies):
+        if movies[index]["rating"] > 9.0:
+            print(movies[index]["title"])
+            break
+        index += 1
+    else:
+        print("Шедевров не найдено")
 
 def count_long_movies(movies: list[dict], threshold: int = 120) -> int:
-    """Count movies longer than the duration threshold"""
+    """Count movies longer than duration threshold"""
     count = 0
     for movie in movies:
         if movie["duration_min"] > threshold:
@@ -186,8 +187,33 @@ for movie in iter_high_rated(movies):
     print(format_report_line(movie))
 total_duration = sum(movie["duration_min"] for movie in movies if movie["rating"] > 7)
 
-def main():
-    print("Hello from dz-catalog-analysis-detushev-m-26-555!")
+# #Stage 9
+
+# def build_report(movies: list[dict]) -> None:
+#     average = average_rating(movies)
+#     _, _, average_age = catalog_age_stats(movies)
+#     top_movies = top_n_by_rating(movies)
+#     genre_counts = count_by_genre(movies)
+#     genres = all_genres(movies)
+#     print("ОТЧЕТ ПО КАТАЛОГУ")
+#     print(f"Средний рейтинг: {average}")
+#     print(f"Средний возраст фильмов: {average_age} лет")
+#     print("\nТоп-3 фильма:")
+#     for title, _ in top_movies:
+#         movie = next(movie for movie in movies if movie["title"] == title)
+#         print(f"  {format_report_line(movie)}")
+#     print("\nФильмов по жанрам:")
+#     sorted_genres = sorted(
+#         genre_counts.items(),
+#         key=lambda item: item[1],
+#         reverse=True,
+#     )
+#     for genre, count in sorted_genres:
+#         print(f"  {genre} — {count}")
+#     print(f"\nВсе жанры каталога: {', '.join(sorted(genres))}")
+
+def main() -> None:
+    build_report(movies)
 
 if __name__ == "__main__":
     main()
