@@ -153,6 +153,26 @@ def above_average_movies(movies: list[dict]) -> dict[str, float]:
         if movie["rating"] > average
     }
 
+#Stage 7
+
+def all_genres(movies: list[dict]) -> set[str]:
+    """Return all unique genres in the movie catalog"""
+    genres = set()
+    for movie in movies:
+        genres = genres | movie["genres"]
+    return genres
+
+def common_actors(movie1: dict, movie2: dict) -> set[str]:
+    """Return actors who appear in both movies"""
+    actors1 = set(movie1["actors"])
+    actors2 = set(movie2["actors"])
+    return actors1 & actors2
+
+def genres_only_in_one(movies_a: list[dict], movies_b: list[dict]) -> set[str]:
+    """Return genres found in movies_a but not in movies_b"""
+    genres_a = all_genres(movies_a)
+    genres_b = all_genres(movies_b)
+    return genres_a - genres_b
 
 def main():
     print("Hello from dz-catalog-analysis-detushev-m-26-555!")
