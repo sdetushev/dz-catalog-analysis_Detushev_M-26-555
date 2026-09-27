@@ -23,6 +23,8 @@ movies = [
      "rating": 7.3, "duration_min": 129, "actors": ["P. Diaz", "T. Chalamet"]},
 ]
 
+#Stage 1
+
 def average_rating(movies: list[dict]) -> float:
     """Return the average movie rating with round"""
     total_rating = sum(movie["rating"] for movie in movies)
@@ -46,6 +48,10 @@ def duration_in_hours(minutes: int) -> str:
     remaining_minutes = minutes % 60
 
     return f"{hours}ч {remaining_minutes}м"
+
+#Stage 2
+
+
 
 def main():
     print("Hello from dz-catalog-analysis-detushev-m-26-555!")
