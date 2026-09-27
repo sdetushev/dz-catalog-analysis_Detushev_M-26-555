@@ -112,9 +112,20 @@ def format_report_line(movie: dict) -> str:
         f'{movie["rating"]}/10, {duration}, жанры: {genres}'
     )
 
+#Stage 5
+
+def titles_sorted_by_rating(movies: list[dict]) -> list[str]:
+    """Return movie titles sorted by rating in desc"""
+    sorted_movies = sorted(movies, key=lambda movie: movie["rating"], reverse=True)
+    return [movie["title"] for movie in sorted_movies]
+
+def top_n_by_rating(movies: list[dict], n: int = 3) -> list[tuple[str, float]]:
+    """Return the top N movies as title and rating tuples"""
+    sorted_movies = sorted(movies, key=lambda movie: movie["rating"], reverse=True)
+    return [(movie["title"], movie["rating"]) for movie in sorted_movies[:n]]
+
 def main():
     print("Hello from dz-catalog-analysis-detushev-m-26-555!")
-
 
 if __name__ == "__main__":
     main()
