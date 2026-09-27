@@ -58,7 +58,7 @@ def rating_tier(rating: float) -> str:
     return "средне" if rating >= 5 else "слабо"
 
 def decade_label(year: int) -> str:
-    """Return a category based on the movie year"""
+    """Return category based on the movie year"""
     match year:
         case _ if year > 2020:
             return "новые"
@@ -90,6 +90,27 @@ def count_long_movies(movies: list[dict], threshold: int = 120) -> int:
         if movie["duration_min"] > threshold:
             count += 1
     return count
+
+#Stage 4
+
+def normalize_title(title: str) -> str:
+    """Convert movie title to Title Case"""
+    words = title.split()
+    normalized_words = [word[0].upper() + word[1:] for word in words]
+    return " ".join(normalized_words)
+
+def make_slug(title: str) -> str:
+    """Convert normalized movie title to slug"""
+    return title.lower().replace(" ", "-")
+
+def format_report_line(movie: dict) -> str:
+    """Return formatted report line for movie"""
+    genres = ", ".join(sorted(movie["genres"]))
+    duration = duration_in_hours(movie["duration_min"])
+    return (
+        f'"{normalize_title(movie["title"])}" ({movie["year"]}) — '
+        f'{movie["rating"]}/10, {duration}, жанры: {genres}'
+    )
 
 def main():
     print("Hello from dz-catalog-analysis-detushev-m-26-555!")
