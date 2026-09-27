@@ -124,6 +124,36 @@ def top_n_by_rating(movies: list[dict], n: int = 3) -> list[tuple[str, float]]:
     sorted_movies = sorted(movies, key=lambda movie: movie["rating"], reverse=True)
     return [(movie["title"], movie["rating"]) for movie in sorted_movies[:n]]
 
+#Stage 6
+
+def count_by_genre(movies: list[dict]) -> dict[str, int]:
+    """Return the number of movies for each genre"""
+    genre_counts = {}
+    for movie in movies:
+        for genre in movie["genres"]:
+            genre_counts[genre] = genre_counts.get(genre, 0) + 1
+    return genre_counts
+
+def actor_filmography(movies: list[dict]) -> dict[str, list[str]]:
+    """Return movie titles grouped by actor"""
+    filmography = {}
+    for movie in movies:
+        for actor in movie["actors"]:
+            if actor not in filmography:
+                filmography[actor] = []
+            filmography[actor].append(movie["title"])
+    return filmography
+
+def above_average_movies(movies: list[dict]) -> dict[str, float]:
+    """Return titles and ratings of movies rated above average"""
+    average = average_rating(movies)
+    return {
+        movie["title"]: movie["rating"]
+        for movie in movies
+        if movie["rating"] > average
+    }
+
+
 def main():
     print("Hello from dz-catalog-analysis-detushev-m-26-555!")
 
