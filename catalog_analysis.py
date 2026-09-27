@@ -189,7 +189,7 @@ def demonstrate_high_rated(movies: list[dict]) -> None:
 
 total_duration = sum(movie["duration_min"] for movie in movies if movie["rating"] > 7)
 
-#Stage 9
+# Stage 9
 
 def build_report(movies: list[dict]) -> None:
     average = average_rating(movies)
